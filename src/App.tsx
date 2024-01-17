@@ -18,7 +18,6 @@ function App() {
     }
     setBari(bari === 'X' ? 'O' : 'X');
   }
-
   const boxClick = (index: number) => { 
     const newBoxes = [...boxes];
     if (newBoxes[index] !== '') return;
