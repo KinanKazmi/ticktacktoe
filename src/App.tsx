@@ -3,29 +3,26 @@ import "./App.css";
 import "./BoxContainer.css";
 import "./MainContainer.css";
 import Box from "./Box";
+import { winningConditions } from "./helperFunctions";
 
 function App() {
   const [boxes, setBoxes] = useState((new Array(9)).fill('')); // ['','','','','','','','','','']
   const [bari, setBari] = useState('X');
   const [disable, setDisable] = useState(false);
   
-  const checkWin = (newBoxes: string[]) => {
-    if (newBoxes[0] !== '' ) {
-      if (newBoxes[0] === newBoxes[1] && newBoxes[1] === newBoxes[2]) {
-        setDisable(true);
-        return alert('winner is ' + bari);
-      }
-    }
-    setBari(bari === 'X' ? 'O' : 'X');
-  }
   const boxClick = (index: number) => { 
     const newBoxes = [...boxes];
     if (newBoxes[index] !== '') return;
     newBoxes[index] = bari;
     setBoxes(newBoxes);
-    checkWin(newBoxes);
+    const userWon = winningConditions(newBoxes);
+    if (userWon) {
+      setDisable(true);
+    } else {
+      setBari(bari === 'X' ? 'O' : 'X')
+    }
   }
-
+  
   return (
     <div className="App">
       <div className="MainContainer">
